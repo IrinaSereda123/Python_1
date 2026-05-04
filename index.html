@@ -36,11 +36,6 @@
             font-weight: 500;
             letter-spacing: -0.3px;
         }
-        header p {
-            margin-top: 0.5rem;
-            opacity: 0.85;
-            font-size: 1rem;
-        }
         .discipline-badge {
             display: inline-block;
             background: #ffd43b;
@@ -63,9 +58,6 @@
             margin-right: 1.5rem;
             font-weight: 500;
         }
-        nav a:hover {
-            text-decoration: underline;
-        }
         main {
             padding: 2rem;
         }
@@ -73,55 +65,13 @@
             font-size: 1.6rem;
             margin-top: 1.8rem;
             margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
             border-bottom: 2px solid #e2e8f0;
             color: #0f2b3f;
         }
         h3 {
             font-size: 1.3rem;
-            margin: 1.5rem 0 0.75rem 0;
+            margin: 1.5rem 0 0.75rem;
             color: #306998;
-        }
-        h4 {
-            font-size: 1.1rem;
-            margin: 1rem 0 0.5rem 0;
-            font-weight: 600;
-        }
-        p, li {
-            margin-bottom: 0.75rem;
-        }
-        .code-block {
-            background: #f1f5f9;
-            border-left: 4px solid #ffd43b;
-            padding: 1rem;
-            margin: 1rem 0;
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 0.85rem;
-            border-radius: 8px;
-        }
-        pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        code {
-            background: #eef2f6;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-family: monospace;
-        }
-        .note {
-            background: #fef9e3;
-            border-left: 4px solid #ffd43b;
-            padding: 0.75rem 1rem;
-            margin: 1rem 0;
-            border-radius: 6px;
-        }
-        .warning {
-            background: #fee2e2;
-            border-left: 4px solid #dc2626;
         }
         .task-list {
             display: grid;
@@ -134,7 +84,6 @@
             border: 1px solid #e2edf2;
             border-radius: 12px;
             padding: 1rem 1.2rem;
-            transition: box-shadow 0.1s ease;
         }
         .task-card h4 {
             margin-top: 0;
@@ -151,8 +100,33 @@
             align-items: center;
             justify-content: center;
             border-radius: 30px;
-            font-size: 0.8rem;
             font-weight: bold;
+        }
+        .star {
+            color: #f5a623;
+            font-size: 1.2rem;
+            margin-left: 0.5rem;
+        }
+        .code-block {
+            background: #f1f5f9;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        .note {
+            background: #fef9e3;
+            border-left: 4px solid #ffd43b;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
         }
         details {
             margin-top: 0.75rem;
@@ -163,14 +137,6 @@
             font-weight: 500;
             font-size: 0.85rem;
         }
-        summary:hover {
-            text-decoration: underline;
-        }
-        hr {
-            margin: 2rem 0;
-            border: none;
-            border-top: 1px solid #e2e8f0;
-        }
         footer {
             background: #f1f5f9;
             padding: 1.2rem 2rem;
@@ -180,12 +146,8 @@
             border-top: 1px solid #e2e8f0;
         }
         @media (max-width: 700px) {
-            main {
-                padding: 1.2rem;
-            }
-            header h1 {
-                font-size: 1.5rem;
-            }
+            main { padding: 1.2rem; }
+            header h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -203,13 +165,7 @@
     <main>
         <section id="basics">
             <h2>Часть 1. Почему Python?</h2>
-            <p><strong>Python</strong> — интерпретируемый, высокоуровневый язык с динамической типизацией. Его философия делает код понятным и выразительным, а экосистема позволяет решать задачи от веб‑разработки до искусственного интеллекта.</p>
-            <ul>
-                <li>✅ Читаемость и лаконичность</li>
-                <li>✅ Огромное сообщество и библиотеки</li>
-                <li>✅ Подходит для первого языка программирования</li>
-            </ul>
-
+            <p><strong>Python</strong> — интерпретируемый, высокоуровневый язык с динамической типизацией. Его философия — читаемость и простота.</p>
             <h3>Дзен Python (PEP 20)</h3>
             <div class="code-block">
                 <pre>>>> import this
@@ -218,79 +174,29 @@ The Zen of Python, by Tim Peters
 Beautiful is better than ugly.
 Explicit is better than implicit.
 Simple is better than complex.
-Complex is better than complicated.
-Flat is better than nested.
-Sparse is better than dense.
-Readability counts.
-Special cases aren't special enough to break the rules.
-Although practicality beats purity.
-Errors should never pass silently.
-Unless explicitly silenced.
-In the face of ambiguity, refuse the temptation to guess.
-There should be one-- and preferably only one --obvious way to do it.
-Although that way may not be obvious at first unless you're Dutch.
-Now is better than never.
-Although never is often better than *right* now.
-If the implementation is hard to explain, it's a bad idea.
-If the implementation is easy to explain, it may be a good idea.
-Namespaces are one honking great idea -- let's do more of those!</pre>
+...</pre>
             </div>
-            <p>Этот текст встроен в интерпретатор Python. Его достаточно ввести <code>import this</code> — и вы увидите свод правил, которым следует язык.</p>
-
-            <h3>Структура простой программы</h3>
-            <div class="code-block">
-                <pre># переменные и типы
-name = "Алексей"
-age = 17
-height = 1.75
-is_student = True
-
-# условный оператор
-if age >= 18:
-    print("Доступ разрешён")
-else:
-    print("Доступ ограничен")
-
-# цикл for
-for i in range(5):
-    print(f"Квадрат числа {i} = {i*i}")</pre>
-            </div>
-            <div class="note">
-                💡 <strong>Обратите внимание:</strong> блоки кода выделяются отступами (пробелами). Это не просто стиль — это синтаксическое правило.
-            </div>
+            <div class="note">💡 Блоки кода выделяются отступами. Это синтаксическое правило.</div>
         </section>
 
         <section id="guide">
             <h2>Часть 2. Быстрый старт</h2>
-            <h3>Установка и запуск</h3>
             <ul>
-                <li>Скачайте Python с официального сайта <a href="https://python.org" target="_blank">python.org</a> (версия 3.10 или новее).</li>
-                <li>Во время установки обязательно отметьте галочку <strong>«Add Python to PATH»</strong>.</li>
-                <li>Проверьте установку в терминале/командной строке: <code>python --version</code>.</li>
-                <li>Для написания кода мы будем использовать <strong>PyCharm Community</strong> — это профессиональная среда разработки, созданная специально для Python. (Альтернативы: VS Code, IDLE, но на курсе акцент на PyCharm).</li>
+                <li>Установите Python 3.10+ с <a href="https://python.org" target="_blank">python.org</a> (обязательно добавьте в PATH).</li>
+                <li>Основная среда — <strong>PyCharm Community</strong> (или VS Code / IDLE).</li>
+                <li>Запуск: <code>python файл.py</code> в терминале или зелёная кнопка в PyCharm.</li>
             </ul>
-            <h3>Как выполнить код</h3>
-            <ul>
-                <li><strong>Интерактивный режим (REPL):</strong> введите <code>python</code> в терминале и пишите команды построчно.</li>
-                <li><strong>Запуск скрипта:</strong> сохраните код в файл с расширением <code>.py</code> (например, <code>my_program.py</code>) и выполните <code>python my_program.py</code>.</li>
-                <li><strong>В PyCharm:</strong> создайте новый проект, добавьте файл .py и нажмите зелёную кнопку запуска.</li>
-            </ul>
-            <div class="note">
-                🔁 <strong>Совет:</strong> для комфортной разработки используйте виртуальное окружение (<code>python -m venv venv</code>), чтобы изолировать проекты друг от друга.
-            </div>
+            <div class="note">🔁 Для изоляции проектов используйте виртуальное окружение: <code>python -m venv venv</code></div>
         </section>
 
         <section id="tasks">
             <h2>Часть 3. Первые задания</h2>
-            <p>Выполните приведённые ниже задачи, следуя принципам читаемости и чистого кода. Каждое задание предполагает написание отдельного скрипта, который должен корректно работать и обрабатывать возможные ошибки ввода.</p>
+            <p>Напишите отдельные скрипты для каждой задачи. Обрабатывайте ошибки ввода.</p>
             <div class="task-list">
                 <div class="task-card">
                     <h4><span class="task-num">1</span> Дзен Python на экран</h4>
-                    <p>Напишите программу, которая выводит «Дзен Python» (PEP 20) точно в том же виде, как при выполнении <code>import this</code>. <strong>Дополнительное требование:</strong> программа должна делать это <strong>без использования</strong> <code>import this</code> — выведите текст напрямую через <code>print()</code>, используя многострочную строку или последовательность вызовов <code>print</code>.</p>
-                    <details>
-                        <summary>📘 Показать решение</summary>
-                        <div class="code-block"><pre># Решение задания 1
-zen = """The Zen of Python, by Tim Peters
+                    <p>Выведите «Дзен Python» (PEP 20) в точности как при <code>import this</code>, но <strong>без использования</strong> <code>import this</code>. Используйте многострочную строку и <code>print()</code>.</p>
+                    <details><summary>📘 Решение</summary><div class="code-block"><pre>zen = """The Zen of Python, by Tim Peters
 
 Beautiful is better than ugly.
 Explicit is better than implicit.
@@ -311,70 +217,68 @@ Although never is often better than *right* now.
 If the implementation is hard to explain, it's a bad idea.
 If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!"""
-
-print(zen)</pre></div>
-                    </details>
+print(zen)</pre></div></details>
                 </div>
+
                 <div class="task-card">
                     <h4><span class="task-num">2</span> Простой калькулятор</h4>
-                    <p>Создайте программу, которая запрашивает у пользователя два числа и операцию (+, -, *, /). Выполняет вычисление и выводит результат. Программа должна обрабатывать деление на ноль и неверный ввод (например, вместо числа введена буква).</p>
-                    <details>
-                        <summary>📘 Показать решение</summary>
-                        <div class="code-block"><pre># Решение задания 2
-while True:
+                    <p>Запросите два числа и операцию (+, -, *, /). Выведите результат. Обработайте деление на ноль и нечисловой ввод.</p>
+                    <details><summary>📘 Решение</summary><div class="code-block"><pre>while True:
     try:
-        a = float(input("Введите первое число: "))
-        op = input("Введите операцию (+, -, *, /): ")
-        b = float(input("Введите второе число: "))
-        if op == '+':
-            result = a + b
-        elif op == '-':
-            result = a - b
-        elif op == '*':
-            result = a * b
+        a = float(input("Первое число: "))
+        op = input("Операция (+, -, *, /): ")
+        b = float(input("Второе число: "))
+        if op == '+': result = a + b
+        elif op == '-': result = a - b
+        elif op == '*': result = a * b
         elif op == '/':
             if b == 0:
                 print("Ошибка: деление на ноль!")
                 continue
             result = a / b
         else:
-            print("Ошибка: неизвестная операция")
+            print("Неизвестная операция")
             continue
         print(f"{a} {op} {b} = {result}")
         break
     except ValueError:
-        print("Ошибка: введите числа, а не текст")</pre></div>
-                    </details>
+        print("Ошибка: введите числа")</pre></div></details>
                 </div>
+
                 <div class="task-card">
                     <h4><span class="task-num">3</span> Геометрия с модулем math</h4>
-                    <p>Напишите программу, которая запрашивает радиус круга (положительное число) и вычисляет его площадь и длину окружности, используя значение π из модуля <code>math</code>. Выведите результаты с точностью до двух знаков после запятой.</p>
-                    <details>
-                        <summary>📘 Показать решение</summary>
-                        <div class="code-block"><pre># Решение задания 3
-import math
-
+                    <p>Запросите радиус круга (положительное число). Вычислите площадь и длину окружности, используя <code>math.pi</code>. Результат округлите до двух знаков.</p>
+                    <details><summary>📘 Решение</summary><div class="code-block"><pre>import math
 while True:
     try:
-        r = float(input("Введите радиус круга (положительное число): "))
+        r = float(input("Радиус круга: "))
         if r <= 0:
-            print("Ошибка: радиус должен быть больше нуля")
+            print("Радиус должен быть > 0")
             continue
         area = math.pi * r ** 2
-        circumference = 2 * math.pi * r
-        print(f"Площадь круга: {area:.2f}")
-        print(f"Длина окружности: {circumference:.2f}")
+        circ = 2 * math.pi * r
+        print(f"Площадь: {area:.2f}\nДлина окружности: {circ:.2f}")
         break
     except ValueError:
-        print("Ошибка: введите число")</pre></div>
-                    </details>
+        print("Ошибка: введите число")</pre></div></details>
+                </div>
+
+                <div class="task-card">
+                    <h4><span class="task-num">4</span> Числа Армстронга <span class="star">★</span></h4>
+                    <p>Число Армстронга (трёхзначное) равно сумме кубов его цифр. Например, 153 = 1³ + 5³ + 3³. Программа должна найти и вывести <strong>все</strong> трёхзначные числа Армстронга (от 100 до 999).</p>
+                    <details><summary>📘 Решение</summary><div class="code-block"><pre>for num in range(100, 1000):
+    a = num // 100          # сотни
+    b = (num // 10) % 10    # десятки
+    c = num % 10            # единицы
+    if a**3 + b**3 + c**3 == num:
+        print(num)</pre></div></details>
                 </div>
             </div>
         </section>
     </main>
     <footer>
         Учебные материалы для курса «Проектирование ИИ-решений на Python» | УО "Национальный детский технопарк"<br>
-        Python 3.10+, основная среда — PyCharm Community.
+        Python 3.10+, среда — PyCharm Community.
     </footer>
 </div>
 </body>
