@@ -154,6 +154,18 @@
             font-size: 0.8rem;
             font-weight: bold;
         }
+        details {
+            margin-top: 0.75rem;
+            cursor: pointer;
+        }
+        summary {
+            color: #306998;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        summary:hover {
+            text-decoration: underline;
+        }
         hr {
             margin: 2rem 0;
             border: none;
@@ -187,7 +199,6 @@
         <a href="#basics">Основы</a>
         <a href="#guide">Руководство</a>
         <a href="#tasks">Задания</a>
-        <a href="#resources">Ресурсы</a>
     </nav>
     <main>
         <section id="basics">
@@ -276,7 +287,9 @@ for i in range(5):
                 <div class="task-card">
                     <h4><span class="task-num">1</span> Дзен Python на экран</h4>
                     <p>Напишите программу, которая выводит «Дзен Python» (PEP 20) точно в том же виде, как при выполнении <code>import this</code>. <strong>Дополнительное требование:</strong> программа должна делать это <strong>без использования</strong> <code>import this</code> — выведите текст напрямую через <code>print()</code>, используя многострочную строку или последовательность вызовов <code>print</code>.</p>
-                    <div class="code-block"><pre># Решение задания 1
+                    <details>
+                        <summary>📘 Показать решение</summary>
+                        <div class="code-block"><pre># Решение задания 1
 zen = """The Zen of Python, by Tim Peters
 
 Beautiful is better than ugly.
@@ -300,11 +313,14 @@ If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!"""
 
 print(zen)</pre></div>
+                    </details>
                 </div>
                 <div class="task-card">
                     <h4><span class="task-num">2</span> Простой калькулятор</h4>
                     <p>Создайте программу, которая запрашивает у пользователя два числа и операцию (+, -, *, /). Выполняет вычисление и выводит результат. Программа должна обрабатывать деление на ноль и неверный ввод (например, вместо числа введена буква).</p>
-                    <div class="code-block"><pre># Решение задания 2
+                    <details>
+                        <summary>📘 Показать решение</summary>
+                        <div class="code-block"><pre># Решение задания 2
 while True:
     try:
         a = float(input("Введите первое число: "))
@@ -328,11 +344,14 @@ while True:
         break
     except ValueError:
         print("Ошибка: введите числа, а не текст")</pre></div>
+                    </details>
                 </div>
                 <div class="task-card">
                     <h4><span class="task-num">3</span> Геометрия с модулем math</h4>
                     <p>Напишите программу, которая запрашивает радиус круга (положительное число) и вычисляет его площадь и длину окружности, используя значение π из модуля <code>math</code>. Выведите результаты с точностью до двух знаков после запятой.</p>
-                    <div class="code-block"><pre># Решение задания 3
+                    <details>
+                        <summary>📘 Показать решение</summary>
+                        <div class="code-block"><pre># Решение задания 3
 import math
 
 while True:
@@ -348,20 +367,8 @@ while True:
         break
     except ValueError:
         print("Ошибка: введите число")</pre></div>
+                    </details>
                 </div>
-            </div>
-        </section>
-
-        <section id="resources">
-            <h2>Часть 4. Полезные ресурсы</h2>
-            <ul>
-                <li><a href="https://docs.python.org/3/tutorial/" target="_blank">Официальный туториал Python (англ.)</a></li>
-                <li><a href="https://peps.python.org/pep-0008/" target="_blank">PEP 8 — руководство по стилю кода</a></li>
-                <li><a href="https://pythontutor.com/" target="_blank">Python Tutor — визуализация выполнения кода</a></li>
-                <li><a href="https://www.jetbrains.com/pycharm/download/" target="_blank">Скачать PyCharm Community (бесплатно)</a></li>
-            </ul>
-            <div class="note warning">
-                ⚠️ Важно: изучайте код, экспериментируйте, но не копируйте готовые решения без понимания.
             </div>
         </section>
     </main>
