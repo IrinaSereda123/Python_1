@@ -154,22 +154,6 @@
             font-size: 0.8rem;
             font-weight: bold;
         }
-        details {
-            margin-top: 0.75rem;
-            cursor: pointer;
-        }
-        summary {
-            color: #306998;
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
-        details p, details ul {
-            font-size: 0.85rem;
-            background: #eef2fa;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            margin-top: 0.5rem;
-        }
         hr {
             margin: 2rem 0;
             border: none;
@@ -292,57 +276,80 @@ for i in range(5):
                 <div class="task-card">
                     <h4><span class="task-num">1</span> Дзен Python на экран</h4>
                     <p>Напишите программу, которая выводит «Дзен Python» (PEP 20) точно в том же виде, как при выполнении <code>import this</code>. <strong>Дополнительное требование:</strong> программа должна делать это <strong>без использования</strong> <code>import this</code> — выведите текст напрямую через <code>print()</code>, используя многострочную строку или последовательность вызовов <code>print</code>.</p>
-                    <details>
-                        <summary>📘 Подсказки (как сделать)</summary>
-                        <ul>
-                            <li>Скопируйте текст дзена из примера выше (или из документации).</li>
-                            <li>Используйте тройные кавычки <code>""" ... """</code> для хранения длинного текста.</li>
-                            <li>Вызовите <code>print(zen_text)</code>.</li>
-                            <li>Убедитесь, что сохранены пустые строки и точное форматирование.</li>
-                        </ul>
-                    </details>
+                    <div class="code-block"><pre># Решение задания 1
+zen = """The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!"""
+
+print(zen)</pre></div>
                 </div>
                 <div class="task-card">
-                    <h4><span class="task-num">2</span> Таблица умножения с изюминкой</h4>
-                    <p>Создайте программу, которая запрашивает у пользователя целое число <code>n</code> (от 1 до 20) и выводит таблицу умножения для всех чисел от 1 до <code>n</code> в отформатированном виде. После таблицы программа должна дополнительно вычислить и вывести <strong>сумму всех произведений</strong> в этой таблице.</p>
-                    <p>Пример для <code>n = 3</code>:</p>
-                    <div class="code-block"><pre>1 x 1 = 1    1 x 2 = 2    1 x 3 = 3
-2 x 1 = 2    2 x 2 = 4    2 x 3 = 6
-3 x 1 = 3    3 x 2 = 6    3 x 3 = 9
-Сумма всех произведений: 36</pre></div>
-                    <details>
-                        <summary>📘 Подсказки (как сделать)</summary>
-                        <ul>
-                            <li>Используйте <code>while</code> или <code>for</code> для запроса числа, пока пользователь не введёт корректное значение.</li>
-                            <li>Два вложенных цикла: внешний для <code>i</code> от 1 до n, внутренний для <code>j</code> от 1 до n.</li>
-                            <li>Вычисляйте произведение <code>i * j</code> и накапливайте сумму.</li>
-                            <li>Для красивого вывода используйте <code>print(f"{i} x {j} = {i*j:2}", end="    ")</code> или форматирование строк.</li>
-                            <li>После внутреннего цикла делайте <code>print()</code> для перехода на новую строку.</li>
-                        </ul>
-                    </details>
+                    <h4><span class="task-num">2</span> Простой калькулятор</h4>
+                    <p>Создайте программу, которая запрашивает у пользователя два числа и операцию (+, -, *, /). Выполняет вычисление и выводит результат. Программа должна обрабатывать деление на ноль и неверный ввод (например, вместо числа введена буква).</p>
+                    <div class="code-block"><pre># Решение задания 2
+while True:
+    try:
+        a = float(input("Введите первое число: "))
+        op = input("Введите операцию (+, -, *, /): ")
+        b = float(input("Введите второе число: "))
+        if op == '+':
+            result = a + b
+        elif op == '-':
+            result = a - b
+        elif op == '*':
+            result = a * b
+        elif op == '/':
+            if b == 0:
+                print("Ошибка: деление на ноль!")
+                continue
+            result = a / b
+        else:
+            print("Ошибка: неизвестная операция")
+            continue
+        print(f"{a} {op} {b} = {result}")
+        break
+    except ValueError:
+        print("Ошибка: введите числа, а не текст")</pre></div>
                 </div>
                 <div class="task-card">
-                    <h4><span class="task-num">3</span> Генератор паролей</h4>
-                    <p>Реализуйте генератор случайных паролей. Пользователь задаёт длину пароля (от 6 до 20 символов) и выбирает, какие символы включать: цифры, буквы (латиница в верхнем и нижнем регистре) и специальные символы <code>!@#$%^&*()_+</code>. Программа должна генерировать надёжный пароль, содержащий хотя бы один символ из каждого выбранного набора, и выводить его на экран.</p>
-                    <p>Требования:</p>
-                    <ul>
-                        <li>Использовать модуль <code>random</code>.</li>
-                        <li>Предусмотреть случай, когда пользователь не выбрал ни одного набора — выдать сообщение об ошибке и повторить выбор.</li>
-                        <li>После генерации предложить пользователю сгенерировать ещё один пароль или выйти.</li>
-                    </ul>
-                    <details>
-                        <summary>📘 Подсказки (как сделать)</summary>
-                        <ul>
-                            <li>Создайте строки: <code>digits = "0123456789"</code>, <code>letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</code>, <code>special = "!@#$%^&*()_+"</code>.</li>
-                            <li>В зависимости от ответов пользователя (y/n) составьте список обязательных наборов и общий пул символов <code>all_chars</code>.</li>
-                            <li>Если ни один набор не выбран — повторить выбор.</li>
-                            <li>Генерация: сначала добавьте в пароль по одному случайному символу из каждого обязательного набора, затем добите остальные символы из общего пула до нужной длины и перемешайте (<code>random.shuffle</code> для списка).</li>
-                            <li>Используйте <code>random.choice()</code> для выбора случайного символа из строки.</li>
-                        </ul>
-                    </details>
+                    <h4><span class="task-num">3</span> Геометрия с модулем math</h4>
+                    <p>Напишите программу, которая запрашивает радиус круга (положительное число) и вычисляет его площадь и длину окружности, используя значение π из модуля <code>math</code>. Выведите результаты с точностью до двух знаков после запятой.</p>
+                    <div class="code-block"><pre># Решение задания 3
+import math
+
+while True:
+    try:
+        r = float(input("Введите радиус круга (положительное число): "))
+        if r <= 0:
+            print("Ошибка: радиус должен быть больше нуля")
+            continue
+        area = math.pi * r ** 2
+        circumference = 2 * math.pi * r
+        print(f"Площадь круга: {area:.2f}")
+        print(f"Длина окружности: {circumference:.2f}")
+        break
+    except ValueError:
+        print("Ошибка: введите число")</pre></div>
                 </div>
             </div>
-
         </section>
 
         <section id="resources">
@@ -356,7 +363,6 @@ for i in range(5):
             <div class="note warning">
                 ⚠️ Важно: изучайте код, экспериментируйте, но не копируйте готовые решения без понимания.
             </div>
-
         </section>
     </main>
     <footer>
