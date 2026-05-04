@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Введение в Python | День 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f5f7fa;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #1e2a3e;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        header {
+            background: #306998; /* Python синий */
+            color: white;
+            padding: 1.8rem 2rem;
+            border-bottom: 4px solid #ffd43b; /* Python жёлтый */
+        }
+        header h1 {
+            font-size: 1.9rem;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+        }
+        header p {
+            margin-top: 0.5rem;
+            opacity: 0.85;
+            font-size: 1rem;
+        }
+        .discipline-badge {
+            display: inline-block;
+            background: #ffd43b;
+            color: #1e2a3e;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+        nav {
+            background: #f8fafc;
+            padding: 0.75rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        nav a {
+            color: #306998;
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-weight: 500;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 2rem;
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            color: #0f2b3f;
+        }
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.75rem 0;
+            color: #306998;
+        }
+        h4 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+            font-weight: 600;
+        }
+        p, li {
+            margin-bottom: 0.75rem;
+        }
+        .code-block {
+            background: #f1f5f9;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        code {
+            background: #eef2f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+        .file-path {
+            background: #eef2f6;
+            font-family: monospace;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            display: inline-block;
+            font-size: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        .note {
+            background: #fef9e3;
+            border-left: 4px solid #ffd43b;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+        .warning {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+        }
+        .task-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        .task-card {
+            background: #f9fbfd;
+            border: 1px solid #e2edf2;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            transition: box-shadow 0.1s ease;
+        }
+        .task-card h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .task-num {
+            background: #306998;
+            color: white;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        hr {
+            margin: 2rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        footer {
+            background: #f1f5f9;
+            padding: 1.2rem 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #4a627a;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media (max-width: 700px) {
+            main {
+                padding: 1.2rem;
+            }
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Введение в программирование на Python</h1>
+        <div class="discipline-badge">Проектирование ИИ-решений на Python | День 1</div>
+    </header>
+    <nav>
+        <a href="#basics">Основы</a>
+        <a href="#guide">Руководство</a>
+        <a href="#tasks">Задания</a>
+        <a href="#resources">Ресурсы</a>
+    </nav>
+    <main>
+        <section id="basics">
+            <h2>Часть 1. Почему Python?</h2>
+            <p><strong>Python</strong> — интерпретируемый, высокоуровневый язык с динамической типизацией. Его философия делает код понятным и выразительным, а экосистема позволяет решать задачи от веб‑разработки до искусственного интеллекта.</p>
+            <ul>
+                <li>✅ Читаемость и лаконичность</li>
+                <li>✅ Огромное сообщество и библиотеки</li>
+                <li>✅ Подходит для первого языка программирования</li>
+            </ul>
+
+            <h3>Дзен Python (PEP 20)</h3>
+            <div class="code-block">
+                <pre>>>> import this
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!</pre>
+            </div>
+            <p>Этот текст встроен в интерпретатор Python. Его достаточно ввести <code>import this</code> — и вы увидите свод правил, которым следует язык.</p>
+
+            <h3>Структура простой программы</h3>
+            <div class="code-block">
+                <pre># переменные и типы
+name = "Алексей"
+age = 17
+height = 1.75
+is_student = True
+
+# условный оператор
+if age >= 18:
+    print("Доступ разрешён")
+else:
+    print("Доступ ограничен")
+
+# цикл for
+for i in range(5):
+    print(f"Квадрат числа {i} = {i*i}")</pre>
+            </div>
+            <div class="note">
+                💡 <strong>Обратите внимание:</strong> блоки кода выделяются отступами (пробелами). Это не просто стиль — это синтаксическое правило.
+            </div>
+        </section>
+
+        <section id="guide">
+            <h2>Часть 2. Быстрый старт</h2>
+            <h3>Установка и запуск</h3>
+            <ul>
+                <li>Скачайте Python с официального сайта <a href="https://python.org" target="_blank">python.org</a> (версия 3.10 или новее).</li>
+                <li>Во время установки обязательно отметьте галочку <strong>«Add Python to PATH»</strong>.</li>
+                <li>Проверьте установку в терминале/командной строке: <code>python --version</code> или <code>python3 --version</code>.</li>
+                <li>Для написания кода можно использовать любой текстовый редактор: VS Code, PyCharm, IDLE (встроенный) или даже блокнот.</li>
+            </ul>
+            <h3>Как выполнить код</h3>
+            <ul>
+                <li><strong>Интерактивный режим (REPL):</strong> введите <code>python</code> в терминале и пишите команды построчно.</li>
+                <li><strong>Запуск скрипта:</strong> сохраните код в файл с расширением <code>.py</code> (например, <code>my_program.py</code>) и выполните <code>python my_program.py</code>.</li>
+            </ul>
+            <div class="note">
+                🔁 <strong>Совет:</strong> для комфортной разработки используйте виртуальное окружение (<code>python -m venv venv</code>), чтобы изолировать проекты друг от друга.
+            </div>
+        </section>
+
+        <section id="tasks">
+            <h2>Часть 3. Первые задания</h2>
+            <p>Выполните приведённые ниже задачи, следуя принципам читаемости и чистого кода. Каждое задание предполагает написание отдельного скрипта, который должен корректно работать и обрабатывать возможные ошибки ввода.</p>
+            <div class="task-list">
+                <div class="task-card">
+                    <h4><span class="task-num">1</span> Дзен Python на экран</h4>
+                    <p>Напишите программу, которая выводит «Дзен Python» (PEP 20) точно в том же виде, как при выполнении <code>import this</code>. <strong>Дополнительное требование:</strong> программа должна делать это <strong>без использования</strong> <code>import this</code> — выведите текст напрямую через <code>print()</code>, используя многострочную строку или последовательность вызовов <code>print</code>.</p>
+                    <p><em>Подсказка:</em> в Python можно использовать тройные кавычки <code>""" ... """</code> для длинного текста.</p>
+                </div>
+                <div class="task-card">
+                    <h4><span class="task-num">2</span> Таблица умножения с изюминкой</h4>
+                    <p>Создайте программу, которая запрашивает у пользователя целое число <code>n</code> (от 1 до 20) и выводит таблицу умножения для всех чисел от 1 до <code>n</code> в отформатированном виде. После таблицы программа должна дополнительно вычислить и вывести <strong>сумму всех произведений</strong> в этой таблице.</p>
+                    <p>Пример для <code>n = 3</code>:</p>
+                    <div class="code-block"><pre>1 x 1 = 1    1 x 2 = 2    1 x 3 = 3
+2 x 1 = 2    2 x 2 = 4    2 x 3 = 6
+3 x 1 = 3    3 x 2 = 6    3 x 3 = 9
+Сумма всех произведений: 36</pre></div>
+                    <p>Программа должна проверять, что введено именно число в допустимом диапазоне, и повторять запрос при ошибке.</p>
+                </div>
+                <div class="task-card">
+                    <h4><span class="task-num">3</span> Генератор паролей</h4>
+                    <p>Реализуйте генератор случайных паролей. Пользователь задаёт длину пароля (от 6 до 20 символов) и выбирает, какие символы включать: цифры, буквы (латиница в верхнем и нижнем регистре) и специальные символы <code>!@#$%^&*()_+</code>. Программа должна генерировать надёжный пароль, содержащий хотя бы один символ из каждого выбранного набора, и выводить его на экран.</p>
+                    <p>Требования:</p>
+                    <ul>
+                        <li>Использовать модуль <code>random</code> или <code>secrets</code>.</li>
+                        <li>Предусмотреть случай, когда пользователь не выбрал ни одного набора — выдать сообщение об ошибке и повторить выбор.</li>
+                        <li>После генерации предложить пользователю сгенерировать ещё один пароль или выйти.</li>
+                    </ul>
+                    <p><em>Пример диалога:</em></p>
+                    <div class="code-block"><pre>Длина пароля (6-20): 12
+Включать цифры? (y/n): y
+Включать буквы? (y/n): y
+Включать спецсимволы? (y/n): n
+Ваш пароль: aF8kL9pQ2rT5</pre></div>
+                </div>
+            </div>
+            <div class="note">
+                💡 <strong>Критерии оценки:</strong> правильность работы, обработка исключений (неверный ввод), читаемость кода (имена переменных, комментарии), соответствие PEP 8.
+            </div>
+        </section>
+
+        <section id="resources">
+            <h2>Часть 4. Полезные ресурсы</h2>
+            <ul>
+                <li><a href="https://docs.python.org/3/tutorial/" target="_blank">Официальный туториал Python (англ.)</a></li>
+                <li><a href="https://peps.python.org/pep-0008/" target="_blank">PEP 8 — руководство по стилю кода</a></li>
+                <li><a href="https://pythontutor.com/" target="_blank">Python Tutor — визуализация выполнения кода</a></li>
+                <li><a href="https://www.youtube.com/@selfedu" target="_blank">Самоучитель Python на YouTube (SelfEdu)</a></li>
+            </ul>
+            <div class="note warning">
+                ⚠️ Важно: изучайте код, экспериментируйте, но не копируйте готовые решения без понимания.
+            </div>
+            <div class="note">
+                🚀 <strong>Что дальше?</strong> После освоения базового синтаксиса переходите к функциям, работе с файлами и библиотекам. Следующее занятие будет посвящено обработке данных и веб‑скрапингу.
+            </div>
+        </section>
+    </main>
+    <footer>
+        Учебные материалы для курса «Платформы программирования» | ИИТ БГУИР<br>
+        Python 3.10+, рекомендуется использовать PyCharm Community.
+    </footer>
+</div>
+</body>
+</html>
