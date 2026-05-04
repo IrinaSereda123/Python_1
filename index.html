@@ -75,7 +75,7 @@
         }
         .task-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 1.2rem;
             margin: 1.5rem 0;
         }
@@ -137,6 +137,12 @@
             font-weight: 500;
             font-size: 0.85rem;
         }
+        .solution-title {
+            font-weight: 600;
+            margin: 0.5rem 0 0.2rem;
+            font-size: 0.85rem;
+            color: #1e466e;
+        }
         footer {
             background: #f1f5f9;
             padding: 1.2rem 2rem;
@@ -191,17 +197,36 @@ Simple is better than complex.
 
         <section id="tasks">
             <h2>Часть 3. Первые задания</h2>
-            <p>Напишите отдельные скрипты для каждой задачи. Обрабатывайте ошибки ввода.</p>
+            <p>Напишите отдельные скрипты для каждой задачи. Изучите оба варианта решений — базовый (без проверок) и надёжный (с обработкой ошибок).</p>
             <div class="task-list">
+                <!-- Задание 1: решение не показываем -->
                 <div class="task-card">
                     <h4><span class="task-num">1</span> Дзен Python на экран</h4>
                     <p>Выведите «Дзен Python» (PEP 20) в точности как при <code>import this</code>, но <strong>без использования</strong> <code>import this</code>. Используйте многострочную строку и <code>print()</code>.</p>
                 </div>
 
+                <!-- Задание 2: два варианта решения -->
                 <div class="task-card">
                     <h4><span class="task-num">2</span> Простой калькулятор</h4>
                     <p>Запросите два числа и операцию (+, -, *, /). Выведите результат. Обработайте деление на ноль и нечисловой ввод.</p>
-                    <details><summary>📘 Решение</summary><div class="code-block"><pre>while True:
+                    <details>
+                        <summary>📘 Показать решения</summary>
+                        <div class="solution-title">🔹 Вариант 1: базовый (без обработки ошибок)</div>
+                        <div class="code-block"><pre>a = float(input("Первое число: "))
+op = input("Операция (+, -, *, /): ")
+b = float(input("Второе число: "))
+if op == '+':
+    print(a + b)
+elif op == '-':
+    print(a - b)
+elif op == '*':
+    print(a * b)
+elif op == '/':
+    print(a / b)
+else:
+    print("Неизвестная операция")</pre></div>
+                        <div class="solution-title">🔹 Вариант 2: с обработкой ошибок (деление на ноль, неверный ввод)</div>
+                        <div class="code-block"><pre>while True:
     try:
         a = float(input("Первое число: "))
         op = input("Операция (+, -, *, /): ")
@@ -220,13 +245,25 @@ Simple is better than complex.
         print(f"{a} {op} {b} = {result}")
         break
     except ValueError:
-        print("Ошибка: введите числа")</pre></div></details>
+        print("Ошибка: введите числа")</pre></div>
+                    </details>
                 </div>
 
+                <!-- Задание 3: два варианта -->
                 <div class="task-card">
                     <h4><span class="task-num">3</span> Геометрия с модулем math</h4>
                     <p>Запросите радиус круга (положительное число). Вычислите площадь и длину окружности, используя <code>math.pi</code>. Результат округлите до двух знаков.</p>
-                    <details><summary>📘 Решение</summary><div class="code-block"><pre>import math
+                    <details>
+                        <summary>📘 Показать решения</summary>
+                        <div class="solution-title">🔹 Вариант 1: базовый (без проверок)</div>
+                        <div class="code-block"><pre>import math
+r = float(input("Радиус круга: "))
+area = math.pi * r ** 2
+circ = 2 * math.pi * r
+print(f"Площадь: {area:.2f}")
+print(f"Длина окружности: {circ:.2f}")</pre></div>
+                        <div class="solution-title">🔹 Вариант 2: с обработкой ошибок (отрицательный радиус, нечисловой ввод)</div>
+                        <div class="code-block"><pre>import math
 while True:
     try:
         r = float(input("Радиус круга: "))
@@ -238,18 +275,40 @@ while True:
         print(f"Площадь: {area:.2f}\nДлина окружности: {circ:.2f}")
         break
     except ValueError:
-        print("Ошибка: введите число")</pre></div></details>
+        print("Ошибка: введите число")</pre></div>
+                    </details>
                 </div>
 
+                <!-- Задание 4: числа Армстронга (звездочка) -->
                 <div class="task-card">
                     <h4><span class="task-num">4</span> Числа Армстронга <span class="star">★</span></h4>
                     <p>Число Армстронга (трёхзначное) равно сумме кубов его цифр. Например, 153 = 1³ + 5³ + 3³. Программа должна найти и вывести <strong>все</strong> трёхзначные числа Армстронга (от 100 до 999).</p>
-                    <details><summary>📘 Решение</summary><div class="code-block"><pre>for num in range(100, 1000):
-    a = num // 100          # сотни
-    b = (num // 10) % 10    # десятки
-    c = num % 10            # единицы
+                    <details>
+                        <summary>📘 Показать решения</summary>
+                        <div class="solution-title">🔹 Вариант 1: простой перебор (без ввода пользователя)</div>
+                        <div class="code-block"><pre>for num in range(100, 1000):
+    a = num // 100
+    b = (num // 10) % 10
+    c = num % 10
     if a**3 + b**3 + c**3 == num:
-        print(num)</pre></div></details>
+        print(num)</pre></div>
+                        <div class="solution-title">🔹 Вариант 2: с запросом границ диапазона и обработкой ошибок</div>
+                        <div class="code-block"><pre>def is_armstrong(n):
+    s = str(n)
+    power = len(s)
+    return sum(int(d)**power for d in s) == n
+
+try:
+    start = int(input("Нижняя граница (≥1): "))
+    end = int(input("Верхняя граница: "))
+    if start < 1 or end < start:
+        print("Некорректный диапазон")
+    else:
+        found = [str(n) for n in range(start, end+1) if is_armstrong(n)]
+        print("Числа Армстронга:", ", ".join(found) if found else "нет")
+except ValueError:
+    print("Ошибка: введите целые числа")</pre></div>
+                    </details>
                 </div>
             </div>
         </section>
