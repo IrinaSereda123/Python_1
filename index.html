@@ -26,10 +26,10 @@
             overflow: hidden;
         }
         header {
-            background: #306998; /* Python синий */
+            background: #306998;
             color: white;
             padding: 1.8rem 2rem;
-            border-bottom: 4px solid #ffd43b; /* Python жёлтый */
+            border-bottom: 4px solid #ffd43b;
         }
         header h1 {
             font-size: 1.9rem;
@@ -112,15 +112,6 @@
             font-size: 0.85rem;
             font-family: monospace;
         }
-        .file-path {
-            background: #eef2f6;
-            font-family: monospace;
-            padding: 0.2rem 0.5rem;
-            border-radius: 6px;
-            display: inline-block;
-            font-size: 0.8rem;
-            margin: 0.5rem 0;
-        }
         .note {
             background: #fef9e3;
             border-left: 4px solid #ffd43b;
@@ -162,6 +153,22 @@
             border-radius: 30px;
             font-size: 0.8rem;
             font-weight: bold;
+        }
+        details {
+            margin-top: 0.75rem;
+            cursor: pointer;
+        }
+        summary {
+            color: #306998;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        details p, details ul {
+            font-size: 0.85rem;
+            background: #eef2fa;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
         }
         hr {
             margin: 2rem 0;
@@ -264,13 +271,14 @@ for i in range(5):
             <ul>
                 <li>Скачайте Python с официального сайта <a href="https://python.org" target="_blank">python.org</a> (версия 3.10 или новее).</li>
                 <li>Во время установки обязательно отметьте галочку <strong>«Add Python to PATH»</strong>.</li>
-                <li>Проверьте установку в терминале/командной строке: <code>python --version</code> или <code>python3 --version</code>.</li>
-                <li>Для написания кода можно использовать любой текстовый редактор: VS Code, PyCharm, IDLE (встроенный) или даже блокнот.</li>
+                <li>Проверьте установку в терминале/командной строке: <code>python --version</code>.</li>
+                <li>Для написания кода мы будем использовать <strong>PyCharm Community</strong> — это профессиональная среда разработки, созданная специально для Python. (Альтернативы: VS Code, IDLE, но на курсе акцент на PyCharm).</li>
             </ul>
             <h3>Как выполнить код</h3>
             <ul>
                 <li><strong>Интерактивный режим (REPL):</strong> введите <code>python</code> в терминале и пишите команды построчно.</li>
                 <li><strong>Запуск скрипта:</strong> сохраните код в файл с расширением <code>.py</code> (например, <code>my_program.py</code>) и выполните <code>python my_program.py</code>.</li>
+                <li><strong>В PyCharm:</strong> создайте новый проект, добавьте файл .py и нажмите зелёную кнопку запуска.</li>
             </ul>
             <div class="note">
                 🔁 <strong>Совет:</strong> для комфортной разработки используйте виртуальное окружение (<code>python -m venv venv</code>), чтобы изолировать проекты друг от друга.
@@ -284,7 +292,15 @@ for i in range(5):
                 <div class="task-card">
                     <h4><span class="task-num">1</span> Дзен Python на экран</h4>
                     <p>Напишите программу, которая выводит «Дзен Python» (PEP 20) точно в том же виде, как при выполнении <code>import this</code>. <strong>Дополнительное требование:</strong> программа должна делать это <strong>без использования</strong> <code>import this</code> — выведите текст напрямую через <code>print()</code>, используя многострочную строку или последовательность вызовов <code>print</code>.</p>
-                    <p><em>Подсказка:</em> в Python можно использовать тройные кавычки <code>""" ... """</code> для длинного текста.</p>
+                    <details>
+                        <summary>📘 Подсказки (как сделать)</summary>
+                        <ul>
+                            <li>Скопируйте текст дзена из примера выше (или из документации).</li>
+                            <li>Используйте тройные кавычки <code>""" ... """</code> для хранения длинного текста.</li>
+                            <li>Вызовите <code>print(zen_text)</code>.</li>
+                            <li>Убедитесь, что сохранены пустые строки и точное форматирование.</li>
+                        </ul>
+                    </details>
                 </div>
                 <div class="task-card">
                     <h4><span class="task-num">2</span> Таблица умножения с изюминкой</h4>
@@ -294,23 +310,36 @@ for i in range(5):
 2 x 1 = 2    2 x 2 = 4    2 x 3 = 6
 3 x 1 = 3    3 x 2 = 6    3 x 3 = 9
 Сумма всех произведений: 36</pre></div>
-                    <p>Программа должна проверять, что введено именно число в допустимом диапазоне, и повторять запрос при ошибке.</p>
+                    <details>
+                        <summary>📘 Подсказки (как сделать)</summary>
+                        <ul>
+                            <li>Используйте <code>while</code> или <code>for</code> для запроса числа, пока пользователь не введёт корректное значение.</li>
+                            <li>Два вложенных цикла: внешний для <code>i</code> от 1 до n, внутренний для <code>j</code> от 1 до n.</li>
+                            <li>Вычисляйте произведение <code>i * j</code> и накапливайте сумму.</li>
+                            <li>Для красивого вывода используйте <code>print(f"{i} x {j} = {i*j:2}", end="    ")</code> или форматирование строк.</li>
+                            <li>После внутреннего цикла делайте <code>print()</code> для перехода на новую строку.</li>
+                        </ul>
+                    </details>
                 </div>
                 <div class="task-card">
                     <h4><span class="task-num">3</span> Генератор паролей</h4>
                     <p>Реализуйте генератор случайных паролей. Пользователь задаёт длину пароля (от 6 до 20 символов) и выбирает, какие символы включать: цифры, буквы (латиница в верхнем и нижнем регистре) и специальные символы <code>!@#$%^&*()_+</code>. Программа должна генерировать надёжный пароль, содержащий хотя бы один символ из каждого выбранного набора, и выводить его на экран.</p>
                     <p>Требования:</p>
                     <ul>
-                        <li>Использовать модуль <code>random</code> или <code>secrets</code>.</li>
+                        <li>Использовать модуль <code>random</code>.</li>
                         <li>Предусмотреть случай, когда пользователь не выбрал ни одного набора — выдать сообщение об ошибке и повторить выбор.</li>
                         <li>После генерации предложить пользователю сгенерировать ещё один пароль или выйти.</li>
                     </ul>
-                    <p><em>Пример диалога:</em></p>
-                    <div class="code-block"><pre>Длина пароля (6-20): 12
-Включать цифры? (y/n): y
-Включать буквы? (y/n): y
-Включать спецсимволы? (y/n): n
-Ваш пароль: aF8kL9pQ2rT5</pre></div>
+                    <details>
+                        <summary>📘 Подсказки (как сделать)</summary>
+                        <ul>
+                            <li>Создайте строки: <code>digits = "0123456789"</code>, <code>letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</code>, <code>special = "!@#$%^&*()_+"</code>.</li>
+                            <li>В зависимости от ответов пользователя (y/n) составьте список обязательных наборов и общий пул символов <code>all_chars</code>.</li>
+                            <li>Если ни один набор не выбран — повторить выбор.</li>
+                            <li>Генерация: сначала добавьте в пароль по одному случайному символу из каждого обязательного набора, затем добите остальные символы из общего пула до нужной длины и перемешайте (<code>random.shuffle</code> для списка).</li>
+                            <li>Используйте <code>random.choice()</code> для выбора случайного символа из строки.</li>
+                        </ul>
+                    </details>
                 </div>
             </div>
             <div class="note">
@@ -324,7 +353,7 @@ for i in range(5):
                 <li><a href="https://docs.python.org/3/tutorial/" target="_blank">Официальный туториал Python (англ.)</a></li>
                 <li><a href="https://peps.python.org/pep-0008/" target="_blank">PEP 8 — руководство по стилю кода</a></li>
                 <li><a href="https://pythontutor.com/" target="_blank">Python Tutor — визуализация выполнения кода</a></li>
-                <li><a href="https://www.youtube.com/@selfedu" target="_blank">Самоучитель Python на YouTube (SelfEdu)</a></li>
+                <li><a href="https://www.jetbrains.com/pycharm/download/" target="_blank">Скачать PyCharm Community (бесплатно)</a></li>
             </ul>
             <div class="note warning">
                 ⚠️ Важно: изучайте код, экспериментируйте, но не копируйте готовые решения без понимания.
@@ -335,8 +364,8 @@ for i in range(5):
         </section>
     </main>
     <footer>
-        Учебные материалы для курса «Платформы программирования» | ИИТ БГУИР<br>
-        Python 3.10+, рекомендуется использовать PyCharm Community.
+        Учебные материалы для курса «Проектирование ИИ-решений на Python» | ИИТ БГУИР<br>
+        Python 3.10+, основная среда — PyCharm Community.
     </footer>
 </div>
 </body>
