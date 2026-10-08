@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python: задания уровня 2</title>
+<style>
+  :root { --ink:#16202e; --muted:#5d6978; --line:#d5dbe3; --bg:#f6f7f9; --blue:#2c5f93; --sun:#f2c94c; --code:#eaeef3; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .wrap { display:grid; grid-template-columns: 15rem minmax(0, 44rem); gap:4rem; max-width:66rem; margin:0 auto; padding:3rem 1.5rem 5rem; }
+  aside { position:sticky; top:3rem; align-self:start; }
+  aside .title { font-size:1.35rem; font-weight:700; line-height:1.25; margin:0 0 .4rem; }
+  aside .day { color:var(--muted); font-size:.95rem; margin:0 0 1.6rem; }
+  aside ol { list-style:none; margin:0; padding:0; border-left:2px solid var(--line); }
+  aside li a { display:block; padding:.35rem 0 .35rem 1rem; margin-left:-2px; border-left:2px solid transparent; color:var(--muted); text-decoration:none; font-size:.98rem; }
+  aside li a:hover { color:var(--ink); border-left-color:var(--blue); }
+  aside li a:focus-visible, summary:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+  h2 { font-size:1.45rem; line-height:1.25; margin:0 0 .6rem; }
+  section { padding:2.2rem 0; border-top:1px solid var(--line); position:relative; }
+  section:first-of-type { border-top:0; padding-top:0; }
+  .n { display:block; font-size:.95rem; color:var(--blue); font-weight:600; margin-bottom:.2rem; }
+  .hard .n::after { content:" ★ повышенная сложность"; color:#8a6d00; }
+  p { margin:.6rem 0; }
+  ul { padding-left:1.2rem; }
+  li { margin:.3rem 0; }
+  code { font-family:Consolas, "Cascadia Mono", Menlo, monospace; font-size:.9em; background:var(--code); padding:.08em .35em; border-radius:3px; }
+  pre { margin:.8rem 0 0; padding:1rem 1.2rem; background:var(--code); border-left:4px solid var(--sun); overflow-x:auto; font:15px/1.5 Consolas, "Cascadia Mono", Menlo, monospace; }
+  pre code { background:none; padding:0; font-size:inherit; }
+  details { border-top:1px solid var(--line); padding:.7rem 0; }
+  details + details { margin-top:0; }
+  .tasks-ctl { margin-top:1.2rem; }
+  summary { cursor:pointer; font-weight:600; color:var(--blue); list-style:none; }
+  summary::-webkit-details-marker { display:none; }
+  summary::before { content:"+"; display:inline-block; width:1.2rem; font-weight:700; }
+  details[open] > summary::before { content:"\2212"; }
+  details p { color:var(--muted); margin-top:.5rem; }
+  .intro { color:var(--muted); }
+  .warn { border-left:4px solid #dc2626; background:#fef2f2; padding:.6rem 1rem; border-radius:4px; margin:1rem 0; font-size:.95rem; }
+  footer { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--line); font-size:.9rem; color:var(--muted); }
+  @media (max-width: 860px) {
+    .wrap { display:block; padding:1.5rem 1.1rem 4rem; }
+    aside { position:static; margin-bottom:2rem; }
+    aside ol { display:flex; flex-wrap:wrap; gap:.3rem 1.2rem; border-left:0; }
+    aside li a { padding:.2rem 0; border-left:0; margin:0; }
+    body { font-size:16px; }
+  }
+  @media print { aside ol, details > summary::before { display:none; } details { display:block; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <p class="title">Python: задания уровня 2</p>
+  <p class="day">День 8. Продвинутые задачи</p>
+  <ol>
+    <li><a href="#start">Перед началом</a></li>
+    <li><a href="#t1">1. Function Calling</a></li>
+    <li><a href="#t2">2. Паспорт фото</a></li>
+    <li><a href="#t3">3. Параллельные запросы</a></li>
+    <li><a href="#t4">4. Надёжный клиент</a></li>
+    <li><a href="#t5">5. Бот с tool calling</a></li>
+  </ol>
+</aside>
+
+<main>
+<section id="start">
+  <h2>Перед началом</h2>
+  <ul>
+    <li>Нужен Python 3.12 или новее и установленные библиотеки: <code>pip install requests python-dotenv aiohttp aiogram</code>.</li>
+    <li>API-ключ OpenRouter в файле <code>.env</code>: <code>OPENROUTER_API_KEY=sk-or-...</code>. Получить: <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a>.</li>
+    <li>Для задания 5 также нужен токен Telegram-бота: <code>TELEGRAM_TOKEN=...</code> в <code>.env</code>.</li>
+    <li>Список моделей меняется. Перед работой проверьте актуальные: <code>GET https://openrouter.ai/api/v1/models</code>.</li>
+    <li>Бесплатные модели имеют суффикс <code>:free</code> и ограничены (~50 запросов в день). Расходуйте осмотрительно.</li>
+  </ul>
+  <p class="intro">Эти задания рассчитаны на тех, кто уже делал консольного помощника и простого бота. Каждое — маленький проект: гипотеза, код, проверка, вывод. Сначала решайте сами, потом открывайте подсказку, и только после неё — решение.</p>
+  <div class="warn">Не публикуйте ключи в репозитории. Файл <code>.env</code> должен быть в <code>.gitignore</code>.</div>
+</section>
+
+<section id="t1" class="hard">
+  <span class="n">Задание 1</span>
+  <h2>Function Calling: модель сама выбирает сервис</h2>
+  <p>В базовом помощнике вы проверяли слова «погода» и «курс» вручную. Теперь уберите эту логику. Опишите функции <code>get_weather(city)</code> и <code>get_currency_rate(currency)</code> как <code>tools</code> в запросе к OpenRouter. Модель сама решает, какую функцию вызвать, а ваш код её выполняет и возвращает результат.</p>
+  <p>Проверьте на вопросах: «Сколько градусов в Минске?», «Курс евро сегодня», «Во что одеться в Варшаве и сколько стоит 100 долларов в рублях?» — модель должна вызвать две функции в одном диалоге.</p>
+  <details><summary>Подсказка</summary><p>OpenRouter поддерживает формат <code>tools</code> как в OpenAI API. Модель возвращает <code>tool_calls</code> — массив с именем функции и аргументами в JSON. Выполните функцию, добавьте ответ сообщением с ролью <code>tool</code> и <code>tool_call_id</code>, затем снова вызовите модель — она сформулирует финальный ответ.</p></details>
+  <details><summary>Решение</summary>
+<pre><code>import json, os, requests
+from dotenv import load_dotenv
+
+load_dotenv()
+KEY = os.getenv("OPENROUTER_API_KEY")
+URL = "https://openrouter.ai/api/v1/chat/completions"
+MODEL = "meta-llama/llama-3.3-70b-instruct"
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Текущая погода в городе",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "city": {"type": "string", "description": "Название города на английском"}
+                },
+                "required": ["city"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_currency_rate",
+            "description": "Официальный курс валюты Национального банка Беларуси",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "currency": {"type": "string", "enum": ["USD", "EUR", "RUB"],
+                                 "description": "Код валюты"}
+                },
+                "required": ["currency"]
+            }
+        }
+    }
+]
+
+def get_weather(city):
+    geo = requests.get("https://geocoding-api.open-meteo.com/v1/search",
+                       params={"name": city, "count": 1, "format": "json"},
+                       timeout=15).json()
+    if not geo.get("results"):
+        return "Город не найден"
+    g = geo["results"][0]
+    w = requests.get("https://api.open-meteo.com/v1/forecast",
+                     params={"latitude": g["latitude"], "longitude": g["longitude"],
+                             "current_weather": "true"}, timeout=15).json()
+    cw = w["current_weather"]
+    return f"{cw['temperature']}C, ветер {cw['windspeed']} км/ч"
+
+def get_currency_rate(currency):
+    rates = requests.get("https://api.nbrb.by/exrates/rates",
+                         params={"periodicity": 0}, timeout=15).json()
+    for r in rates:
+        if r["Cur_Abbreviation"] == currency:
+            return f"{r['Cur_Scale']} {currency} = {r['Cur_OfficialRate']} BYN"
+    return "Валюта не найдена"
+
+FUNCTIONS = {"get_weather": get_weather, "get_currency_rate": get_currency_rate}
+
+def ask(messages):
+    headers = {"Authorization": f"Bearer {KEY}", "Content-Type": "application/json"}
+    payload = {"model": MODEL, "messages": messages,
+               "tools": tools, "tool_choice": "auto"}
+    resp = requests.post(URL, json=payload, headers=headers, timeout=60)
+    resp.raise_for_status()
+    return resp.json()["choices"][0]["message"]
+
+def chat_with_tools(user_text):
+    messages = [
+        {"role": "system", "content": "Ты помощник. Если нужен прогноз погоды "
+         "или курс валют — вызывай функции. Отвечай по-русски кратко."},
+        {"role": "user", "content": user_text}
+    ]
+    msg = ask(messages)
+    # Если модель вызвала функцию — выполняем и спрашиваем снова
+    steps = 0
+    while msg.get("tool_calls") and steps < 3:
+        messages.append(msg)
+        for call in msg["tool_calls"]:
+            name = call["function"]["name"]
+            args = json.loads(call["function"]["arguments"])
+            result = FUNCTIONS[name](**args)
+            messages.append({"role": "tool",
+                             "tool_call_id": call["id"],
+                             "content": result})
+        msg = ask(messages)
+        steps += 1
+    return msg["content"]
+
+if __name__ == "__main__":
+    while True:
+        q = input("\nВы: ").strip()
+        if q.lower() in ("exit", "выход"):
+            break
+        print("ИИ:", chat_with_tools(q))</code></pre></details>
+</section>
+
+<section id="t2" class="hard">
+  <span class="n">Задание 2</span>
+  <h2>Паспорт фотографии: vision + JSON</h2>
+  <p>Найдите на OpenRouter модель, которая принимает изображения. Отправьте ей фотографию и попросите вернуть JSON со структурой: <code>objects</code> (список объектов), <code>place</code> (тип места), <code>text_on_image</code> (текст или <code>null</code>), <code>mood</code> (настроение сцены). Проверьте в коде, что все поля на месте и типы верные. Если модель вернула не JSON — повторите запрос с уточнением.</p>
+  <p>Сделайте три фотографии: кабинет, улица, табличка с текстом. Сравните, насколько точно модель определяет место и читает текст.</p>
+  <details><summary>Подсказка</summary><p>Сначала получите список моделей и отфильтруйте те, у которых <code>"image"</code> есть в <code>architecture.input_modalities</code>. Картинка кодируется в base64 и передаётся как <code>image_url</code>. Параметр <code>response_format={"type": "json_object"}</code> помогает получить чистый JSON. Разбор через <code>json.loads</code> внутри <code>try/except</code>.</p></details>
+  <details><summary>Решение</summary>
+<pre><code>import base64, json, os, requests
+from dotenv import load_dotenv
+
+load_dotenv()
+KEY = os.getenv("OPENROUTER_API_KEY")
+URL = "https://openrouter.ai/api/v1/chat/completions"
+
+# Найти модели с поддержкой изображений
+all_models = requests.get("https://openrouter.ai/api/v1/models", timeout=30).json()["data"]
+vision = [m["id"] for m in all_models
+          if m["id"].endswith(":free")
+          and "image" in m.get("architecture", {}).get("input_modalities", [])]
+if not vision:
+    raise RuntimeError("Нет бесплатных моделей с поддержкой изображений")
+print("Доступны:", vision[:5])
+MODEL = vision[0]   # берём первую
+
+def analyze(path, question):
+    with open(path, "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+    headers = {"Authorization": f"Bearer {KEY}", "Content-Type": "application/json"}
+    messages = [{"role": "user", "content": [
+        {"type": "text", "text": question},
+        {"type": "image_url",
+         "image_url": {"url": f"data:image/jpeg;base64,{b64}"}}
+    ]}]
+    payload = {"model": MODEL, "messages": messages,
+               "response_format": {"type": "json_object"}}
+    resp = requests.post(URL, json=payload, headers=headers, timeout=60)
+    resp.raise_for_status()
+    return resp.json()["choices"][0]["message"]["content"]
+
+SCHEMA = ("Проанализируй фото и верни ТОЛЬКО JSON. "
+          "Поля: objects (список строк), place (строка), "
+          "text_on_image (строка или null), mood (строка). "
+          "Без пояснений, только JSON.")
+
+if __name__ == "__main__":
+    for photo in ["cabinet.jpg", "street.jpg", "sign.jpg"]:
+        raw = analyze(photo, SCHEMA)
+        try:
+            data = json.loads(raw)
+            assert isinstance(data["objects"], list)
+            assert isinstance(data["place"], str)
+            print(f"{photo}: {data['place']}, "
+                  f"объекты: {data['objects']}, "
+                  f"текст: {data.get('text_on_image')}")
+        except (json.JSONDecodeError, KeyError, AssertionError):
+            print(f"{photo}: модель вернула некорректный JSON:\n{raw}")</code></pre></details>
+</section>
+
+<section id="t3" class="hard">
+  <span class="n">Задание 3</span>
+  <h2>Параллельные запросы: 10 городов одновременно</h2>
+  <p>Запросите текущую погоду для десяти городов двумя способами: последовательно (один за другим) и параллельно через <code>asyncio.gather</code>. Измерьте время обоих подходов с помощью <code>time.perf_counter</code>. Посчитайте ускорение и объясните, почему параллельный вариант быстрее не в 10 раз, а меньше.</p>
+  <p>Дополнительно: постройте таблицу «город — температура» и найдите самый тёплый и самый холодный город.</p>
+  <details><summary>Подсказка</summary><p>Каждый запрос — корутина <code>async def fetch(session, city)</code>. Последовательный вариант: <code>for city in cities: await fetch(...)</code>. Параллельный: <code>asyncio.gather(*tasks)</code>. Разница во времени объясняется лимитами соединений и пропускной способностью сети — запросы идут параллельно, но не бесконечно быстро.</p></details>
+  <details><summary>Решение</summary>
+<pre><code>import asyncio, time, aiohttp
+
+CITIES = ["Minsk", "Moscow", "Kyiv", "Warsaw", "Riga",
+          "Vilnius", "London", "Paris", "Berlin", "Tokyo"]
+
+async def fetch_weather(session, city):
+    geo = await (await session.get(
+        f"https://geocoding-api.open-meteo.com/v1/search",
+        params={"name": city, "count": 1, "format": "json"},
+        timeout=aiohttp.ClientTimeout(total=15))).json()
+    if not geo.get("results"):
+        return city, None
+    g = geo["results"][0]
+    w = await (await session.get(
+        "https://api.open-meteo.com/v1/forecast",
+        params={"latitude": g["latitude"], "longitude": g["longitude"],
+                "current_weather": "true"},
+        timeout=aiohttp.ClientTimeout(total=15))).json()
+    return city, w["current_weather"]["temperature"]
+
+async def main():
+    timeout = aiohttp.ClientTimeout(total=30)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        # Последовательно
+        t0 = time.perf_counter()
+        seq_results = []
+        for city in CITIES:
+            c, t = await fetch_weather(session, city)
+            seq_results.append((c, t))
+        seq_time = time.perf_counter() - t0
+
+        # Параллельно
+        t0 = time.perf_counter()
+        tasks = [fetch_weather(session, c) for c in CITIES]
+        par_results = await asyncio.gather(*tasks)
+        par_time = time.perf_counter() - t0
+
+    # Вывод
+    for city, temp in par_results:
+        print(f"{city}: {temp}C")
+
+    warmest = max(par_results, key=lambda x: x[1] if x[1] is not None else -999)
+    coldest = min(par_results, key=lambda x: x[1] if x[1] is not None else 999)
+    print(f"\nТеплее всего: {warmest[0]} ({warmest[1]}C)")
+    print(f"Холоднее всего: {coldest[0]} ({coldest[1]}C)")
+
+    print(f"\nПоследовательно: {seq_time:.2f}с")
+    print(f"Параллельно: {par_time:.2f}с")
+    print(f"Ускорение: {seq_time / par_time:.1f}x")
+
+asyncio.run(main())</code></pre></details>
+</section>
+
+<section id="t4" class="hard">
+  <span class="n">Задание 4</span>
+  <h2>Надёжный HTTP-клиент с повторами и кэшем</h2>
+  <p>Напишите функцию <code>get_json(url, params)</code>, которая: повторяет запрос при ошибках сети и HTTP-кодах 429 и 5xx; выдерживает растущую паузу между попытками (1, 2, 4 секунды); кэширует результат на 10 минут, чтобы не дёргать API повторно. Демонстрация: два одинаковых запроса погоды — первый идёт к API, второй берётся из кэша (проверьте по времени).</p>
+  <p>Дополнительно: добавьте параметр <code>headers</code> и проверьте на запросе к Википедии, которая требует <code>User-Agent</code>.</p>
+  <details><summary>Подсказка</summary><p>Кэш — словарь <code>{url+params: (timestamp, data)}</code>. Пауза: <code>time.sleep(2 ** attempt)</code> для attempt 0, 1, 2. Проверка кэша: <code>datetime.now() - saved_at &lt; timedelta(minutes=10)</code>. Для ключа удобно использовать <code>hashlib.md5</code> от строки URL + параметров.</p></details>
+  <details><summary>Решение</summary>
+<pre><code>import hashlib, time, requests
+from datetime import datetime, timedelta
+
+_cache = {}
+
+def get_json(url, params=None, headers=None, retries=3):
+    # Ключ кэша
+    key = hashlib.md5(
+        (url + str(sorted((params or {}).items())))
+        .encode()
+    ).hexdigest()
+
+    if key in _cache:
+        saved_at, data = _cache[key]
+        if datetime.now() - saved_at &lt; timedelta(minutes=10):
+            print("[кэш]")
+            return data
+
+    last_err = None
+    for attempt in range(retries):
+        try:
+            resp = requests.get(url, params=params,
+                                headers=headers, timeout=15)
+            if resp.status_code == 429 or 500 &lt;= resp.status_code &lt; 600:
+                raise requests.RequestException(f"HTTP {resp.status_code}")
+            resp.raise_for_status()
+            data = resp.json()
+            _cache[key] = (datetime.now(), data)
+            print("[запрос]")
+            return data
+        except requests.RequestException as e:
+            last_err = e
+            if attempt &lt; retries - 1:
+                wait = 2 ** attempt
+                print(f"  попытка {attempt + 1} неудачна ({e}), ждём {wait}с")
+                time.sleep(wait)
+    raise last_err
+
+if __name__ == "__main__":
+    # Первый — запрос к API
+    t0 = time.perf_counter()
+    d1 = get_json("https://api.open-meteo.com/v1/forecast",
+                  {"latitude": 53.9, "longitude": 27.57,
+                   "current_weather": "true"})
+    print(f"{d1['current_weather']['temperature']}C "
+          f"за {time.perf_counter() - t0:.3f}с")
+
+    # Второй — из кэша
+    t0 = time.perf_counter()
+    d2 = get_json("https://api.open-meteo.com/v1/forecast",
+                  {"latitude": 53.9, "longitude": 27.57,
+                   "current_weather": "true"})
+    print(f"{d2['current_weather']['temperature']}C "
+          f"за {time.perf_counter() - t0:.3f}с")
+
+    # С User-Agent для Википедии
+    wiki = get_json(
+        "https://ru.wikipedia.org/api/rest_v1/page/summary/Минск",
+        headers={"User-Agent": "school-course/1.0"})
+    print(wiki["extract"][:120])</code></pre></details>
+</section>
+
+<section id="t5" class="hard">
+  <span class="n">Задание 5</span>
+  <h2>Telegram-бот с function calling</h2>
+  <p>Соберите бота на aiogram 3, который использует function calling через OpenRouter. Бот не проверяет ключевые слова — модель сама решает, вызвать <code>get_weather</code>, <code>get_currency_rate</code> или просто ответить текстом. Добавьте команду <code>/clear</code> для очистки истории и команду <code>/help</code>.</p>
+  <p>Проверьте: спросите «погода в Риме», «курс доллара», а затем задайте обычный вопрос, не требующий функций. Модель должна вызывать инструменты только когда нужно.</p>
+  <details><summary>Подсказка</summary><p>Состояние (история) хранится в словаре <code>sessions</code> по <code>user_id</code>. Для асинхронных HTTP-запросов к OpenRouter используйте <code>aiohttp</code>. Цикл tool calling тот же, что в задании 1, но функции тоже асинхронные. Ограничьте число шагов 3, чтобы бот не зациклился.</p></details>
+  <details><summary>Решение</summary>
+<pre><code>import asyncio, json, os, aiohttp
+from dotenv import load_dotenv
+from aiogram import Bot, Dispatcher, F, types
+from aiogram.filters import Command
+
+load_dotenv()
+KEY = os.getenv("OPENROUTER_API_KEY")
+URL = "https://openrouter.ai/api/v1/chat/completions"
+MODEL = "meta-llama/llama-3.3-70b-instruct"
+
+bot = Bot(token=os.getenv("TELEGRAM_TOKEN"))
+dp = Dispatcher()
+sessions = {}
+
+SYSTEM = {"role": "system",
+          "content": "Ты помощник. Для погоды и курса валют "
+                      "вызывай функции. Отвечай по-русски кратко."}
+
+tools = [
+    {"type": "function",
+     "function": {"name": "get_weather",
+                  "description": "Текущая погода в городе",
+                  "parameters": {"type": "object",
+                                 "properties": {"city": {"type": "string",
+                                     "description": "Город на английском"}},
+                                 "required": ["city"]}}},
+    {"type": "function",
+     "function": {"name": "get_currency_rate",
+                  "description": "Курс валюты НБРБ",
+                  "parameters": {"type": "object",
+                                 "properties": {"currency": {"type": "string",
+                                     "enum": ["USD", "EUR", "RUB"]}},
+                                 "required": ["currency"]}}}
+]
+
+async def get_weather(city):
+    async with aiohttp.ClientSession() as s:
+        geo = await (await s.get(
+            "https://geocoding-api.open-meteo.com/v1/search",
+            params={"name": city, "count": 1, "format": "json"})).json()
+        if not geo.get("results"):
+            return "Город не найден"
+        g = geo["results"][0]
+        w = await (await s.get(
+            "https://api.open-meteo.com/v1/forecast",
+            params={"latitude": g["latitude"],
+                    "longitude": g["longitude"],
+                    "current_weather": "true"})).json()
+    cw = w["current_weather"]
+    return f"{cw['temperature']}C, ветер {cw['windspeed']} км/ч"
+
+async def get_currency_rate(currency):
+    async with aiohttp.ClientSession() as s:
+        rates = await (await s.get(
+            "https://api.nbrb.by/exrates/rates",
+            params={"periodicity": 0})).json()
+    for r in rates:
+        if r["Cur_Abbreviation"] == currency:
+            return f"{r['Cur_Scale']} {currency} = {r['Cur_OfficialRate']} BYN"
+    return "Валюта не найдена"
+
+TOOL_FUNCS = {"get_weather": get_weather,
+              "get_currency_rate": get_currency_rate}
+
+async def ask_model(messages):
+    headers = {"Authorization": f"Bearer {KEY}",
+               "Content-Type": "application/json"}
+    payload = {"model": MODEL, "messages": messages,
+               "tools": tools, "tool_choice": "auto"}
+    timeout = aiohttp.ClientTimeout(total=60)
+    async with aiohttp.ClientSession(timeout=timeout) as s:
+        async with s.post(URL, json=payload, headers=headers) as resp:
+            data = await resp.json()
+            return data["choices"][0]["message"]
+
+async def chat_with_tools(user_id, text):
+    history = sessions.setdefault(user_id, [])
+    history.append({"role": "user", "content": text})
+    del history[:-10]
+    messages = [SYSTEM] + history
+
+    msg = await ask_model(messages)
+    steps = 0
+    while msg.get("tool_calls") and steps &lt; 3:
+        messages.append(msg)
+        for call in msg["tool_calls"]:
+            name = call["function"]["name"]
+            args = json.loads(call["function"]["arguments"])
+            result = await TOOL_FUNCS[name](**args)
+            messages.append({"role": "tool",
+                             "tool_call_id": call["id"],
+                             "content": result})
+        msg = await ask_model(messages)
+        steps += 1
+
+    answer = msg["content"]
+    history.append({"role": "assistant", "content": answer})
+    return answer
+
+@dp.message(Command("start"))
+async def cmd_start(message: types.Message):
+    await message.answer(
+        "Бот с function calling. Модель сама решает, "
+        "вызвать погоду, курс валют или просто ответить.\n"
+        "/clear — очистить историю\n/help — помощь")
+
+@dp.message(Command("help"))
+async def cmd_help(message: types.Message):
+    await message.answer(
+        "Спросите: «погода в Минске», «курс евро», "
+        "или задайте любой вопрос. Модель сама выберет, "
+        "нужны ли внешние данные.")
+
+@dp.message(Command("clear"))
+async def cmd_clear(message: types.Message):
+    sessions.pop(message.from_user.id, None)
+    await message.answer("История очищена.")
+
+@dp.message(F.text)
+async def handle_text(message: types.Message):
+    try:
+        answer = await chat_with_tools(
+            message.from_user.id, message.text)
+    except Exception as e:
+        answer = f"Ошибка: {e}"
+    await message.answer(answer)
+
+async def main():
+    print("Бот запущен")
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())</code></pre></details>
+</section>
+
+<footer>Направление ИКТ «Проектирование ИИ-решений на Python», УО «Национальный детский технопарк».</footer>
+</main>
+</div>
+</body>
+</html>
