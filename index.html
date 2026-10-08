@@ -3,185 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Python: первые задания</title>
+<title>ИИ на Python: практика</title>
 <style>
-  :root { --ink:#16202e; --muted:#5d6978; --line:#d5dbe3; --bg:#f6f7f9; --blue:#2c5f93; --sun:#f2c94c; --code:#eaeef3; }
+  :root {
+    --ink:#16202e; --muted:#5d6978; --line:#d5dbe3; --bg:#f6f7f9;
+    --blue:#2c5f93; --sun:#f2c94c; --code:#eaeef3; --warn:#c0392b;
+    --soft:#eef2fa;
+  }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.6 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-  .wrap { display:grid; grid-template-columns: 15rem minmax(0, 44rem); gap:4rem; max-width:66rem; margin:0 auto; padding:3rem 1.5rem 5rem; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font:17px/1.6 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  .wrap {
+    display:grid; grid-template-columns: 15rem minmax(0, 46rem);
+    gap:4rem; max-width:68rem; margin:0 auto; padding:3rem 1.5rem 5rem;
+  }
   aside { position:sticky; top:3rem; align-self:start; }
   aside .title { font-size:1.35rem; font-weight:700; line-height:1.25; margin:0 0 .4rem; }
   aside .day { color:var(--muted); font-size:.95rem; margin:0 0 1.6rem; }
   aside ol { list-style:none; margin:0; padding:0; border-left:2px solid var(--line); }
-  aside li a { display:block; padding:.35rem 0 .35rem 1rem; margin-left:-2px; border-left:2px solid transparent; color:var(--muted); text-decoration:none; font-size:.98rem; }
+  aside li a {
+    display:block; padding:.35rem 0 .35rem 1rem; margin-left:-2px;
+    border-left:2px solid transparent; color:var(--muted);
+    text-decoration:none; font-size:.98rem;
+  }
   aside li a:hover { color:var(--ink); border-left-color:var(--blue); }
-  aside li a:focus-visible, summary:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+  aside li a:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+
   h2 { font-size:1.45rem; line-height:1.25; margin:0 0 .6rem; }
+  h3 { font-size:1.15rem; margin:1.2rem 0 .5rem; color:var(--blue); }
   section { padding:2.2rem 0; border-top:1px solid var(--line); position:relative; }
   section:first-of-type { border-top:0; padding-top:0; }
   .n { display:block; font-size:.95rem; color:var(--blue); font-weight:600; margin-bottom:.2rem; }
-  .hard .n::after { content:" ★ повышенная сложность"; color:#8a6d00; }
   p { margin:.6rem 0; }
   ul { padding-left:1.2rem; }
   li { margin:.3rem 0; }
-  code { font-family:Consolas, "Cascadia Mono", Menlo, monospace; font-size:.9em; background:var(--code); padding:.08em .35em; border-radius:3px; }
-  pre { margin:.8rem 0 0; padding:1rem 1.2rem; background:var(--code); border-left:4px solid var(--sun); overflow-x:auto; font:15px/1.5 Consolas, "Cascadia Mono", Menlo, monospace; }
+  a { color:var(--blue); }
+  code {
+    font-family:Consolas, "Cascadia Mono", Menlo, monospace;
+    font-size:.88em; background:var(--code); padding:.08em .35em; border-radius:3px;
+  }
+  pre {
+    margin:.8rem 0 0; padding:1rem 1.2rem; background:var(--code);
+    border-left:4px solid var(--sun); overflow-x:auto;
+    font:15px/1.5 Consolas, "Cascadia Mono", Menlo, monospace;
+  }
   pre code { background:none; padding:0; font-size:inherit; }
+
   details { border-top:1px solid var(--line); padding:.7rem 0; }
   details + details { margin-top:0; }
-  .tasks-ctl { margin-top:1.2rem; }
-  summary { cursor:pointer; font-weight:600; color:var(--blue); list-style:none; }
+  summary {
+    cursor:pointer; font-weight:600; color:var(--blue);
+    list-style:none; background:var(--soft); padding:.4rem .8rem; border-radius:6px;
+  }
   summary::-webkit-details-marker { display:none; }
   summary::before { content:"+"; display:inline-block; width:1.2rem; font-weight:700; }
   details[open] > summary::before { content:"\2212"; }
   details p { color:var(--muted); margin-top:.5rem; }
+
+  .note {
+    background:#fef9e3; border-left:4px solid var(--sun);
+    padding:.7rem 1rem; margin:1rem 0; border-radius:4px;
+  }
+  .warn {
+    background:#fdecea; border-left:4px solid var(--warn);
+    padding:.7rem 1rem; margin:1rem 0; border-radius:4px;
+  }
+  .task {
+    background:var(--soft); border-radius:10px; padding:1.2rem 1.5rem;
+    margin:1.5rem 0; border-left:5px solid var(--sun);
+  }
+  .task h3 { margin-top:0; }
   .intro { color:var(--muted); }
-  footer { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--line); font-size:.9rem; color:var(--muted); }
-  @media (max-width: 860px) {
+  footer {
+    margin-top:2rem; padding-top:1rem; border-top:1px solid var(--line);
+    font-size:.9rem; color:var(--muted);
+  }
+  @media (max-width:860px) {
     .wrap { display:block; padding:1.5rem 1.1rem 4rem; }
     aside { position:static; margin-bottom:2rem; }
     aside ol { display:flex; flex-wrap:wrap; gap:.3rem 1.2rem; border-left:0; }
     aside li a { padding:.2rem 0; border-left:0; margin:0; }
     body { font-size:16px; }
   }
-  @media print { aside ol, details > summary::before { display:none; } details { display:block; } }
+  @media print {
+    aside ol, details > summary::before { display:none; }
+    details { display:block; }
+  }
+</style>
+<style>
+  .wrap { display:block; max-width:44rem; }
+  .levels a { display:block; padding:1.2rem 0; border-top:1px solid var(--line); text-decoration:none; color:var(--ink); }
+  .levels a:last-child { border-bottom:1px solid var(--line); }
+  .levels a:hover b { text-decoration:underline; }
+  .levels b { color:var(--blue); font-size:1.2rem; display:block; }
+  .levels span { color:var(--muted); }
 </style>
 </head>
 <body>
 <div class="wrap">
-<aside>
-  <p class="title">Python: первые задания</p>
-  <p class="day">День 1. Проектирование ИИ-решений на Python</p>
-  <ol>
-    <li><a href="#start">Перед началом</a></li>
-    <li><a href="#t1">1. Дзен Python</a></li>
-    <li><a href="#t2">2. Калькулятор</a></li>
-    <li><a href="#t3">3. Круг</a></li>
-    <li><a href="#t4">4. Числа Армстронга</a></li>
-  </ol>
-</aside>
-
 <main>
-<section id="start">
-  <h2>Перед началом</h2>
-  <ul>
-    <li>Нужен Python 3.12 или новее. При установке отметьте «Add Python to PATH».</li>
-    <li>Работаем в PyCharm Community. Один файл на одно задание: <code>task1.py</code>, <code>task2.py</code> и так далее.</li>
-    <li>Запуск из терминала: <code>python task1.py</code>. В PyCharm: зелёная кнопка или Shift+F10.</li>
-    <li>Окружение для проекта создаётся командой <code>python -m venv venv</code>.</li>
-  </ul>
-  <p class="intro">Сначала решаете сами. Потом открываете подсказку, и только после неё решение. Если ваш код отличается от решения, но работает, это нормально.</p>
-</section>
-
-<section id="t1">
-  <span class="n">Задание 1</span>
-  <h2>Дзен Python</h2>
-  <p>Выведите на экран «Дзен Python» (PEP 20), не набирая текст вручную. Нужный модуль найдите сами.</p>
-  <p>После запуска выберите одну строку, объясните её своими словами и скажите, как применили бы её в своём проекте.</p>
-  <details><summary>Подсказка</summary><p>Текст встроен в интерпретатор и появляется при импорте модуля, название которого по-английски означает «это».</p></details>
-  <details><summary>Решение</summary><pre><code>import this</code></pre></details>
-</section>
-
-<section id="t2">
-  <span class="n">Задание 2</span>
-  <h2>Калькулятор</h2>
-  <p>Программа спрашивает два числа и операцию (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>) и печатает результат. Сначала напишите простую версию. Затем сделайте так, чтобы она не падала при вводе «abc» и при делении на ноль.</p>
-  <details><summary>Подсказка</summary><p>Ввод «abc» вызывает исключение <code>ValueError</code>, его ловят через <code>try / except</code>. Деление на ноль проще проверить условием заранее. Чтобы не повторять код, вынесите чтение числа в функцию.</p></details>
-  <details><summary>Решение: простая версия</summary>
-<pre><code>a = float(input("Первое число: "))
-op = input("Операция (+, -, *, /): ")
-b = float(input("Второе число: "))
-
-if op == "+":
-    print(a + b)
-elif op == "-":
-    print(a - b)
-elif op == "*":
-    print(a * b)
-elif op == "/":
-    print(a / b)
-else:
-    print("Неизвестная операция")</code></pre></details>
-  <details><summary>Решение: с проверками</summary>
-<pre><code>def read_number(prompt):
-    while True:
-        try:
-            return float(input(prompt))
-        except ValueError:
-            print("Нужно ввести число.")
-
-
-a = read_number("Первое число: ")
-op = input("Операция (+, -, *, /): ")
-b = read_number("Второе число: ")
-
-result = None
-if op == "+":
-    result = a + b
-elif op == "-":
-    result = a - b
-elif op == "*":
-    result = a * b
-elif op == "/":
-    if b == 0:
-        print("На ноль делить нельзя.")
-    else:
-        result = a / b
-else:
-    print("Неизвестная операция")
-
-if result is not None:
-    print(f"{a} {op} {b} = {result}")</code></pre></details>
-</section>
-
-<section id="t3">
-  <span class="n">Задание 3</span>
-  <h2>Круг</h2>
-  <p>Запросите радиус, посчитайте площадь и длину окружности с помощью <code>math.pi</code>. Выведите оба числа с двумя знаками после запятой. Радиус должен быть положительным.</p>
-  <details><summary>Подсказка</summary><p>Формат с двумя знаками: <code>f"{x:.2f}"</code>. Проверку радиуса удобно делать в цикле <code>while True</code>, который завершается через <code>break</code>.</p></details>
-  <details><summary>Решение</summary>
-<pre><code>import math
-
-while True:
-    try:
-        r = float(input("Радиус: "))
-    except ValueError:
-        print("Нужно ввести число.")
-        continue
-    if r &lt;= 0:
-        print("Радиус должен быть больше нуля.")
-        continue
-    break
-
-print(f"Площадь: {math.pi * r ** 2:.2f}")
-print(f"Длина окружности: {2 * math.pi * r:.2f}")</code></pre></details>
-</section>
-
-<section id="t4" class="hard">
-  <span class="n">Задание 4</span>
-  <h2>Числа Армстронга</h2>
-  <p>Трёхзначное число называют числом Армстронга, если оно равно сумме кубов своих цифр: 153 = 1³ + 5³ + 3³. Найдите все такие числа от 100 до 999.</p>
-  <p>Усложнение: обобщите программу на числа любой длины, где степень равна количеству цифр. Чем такое определение отличается от исходного?</p>
-  <details><summary>Подсказка</summary><p>Цифры можно получить через <code>// 100</code>, <code>// 10 % 10</code> и <code>% 10</code>. Или превратить число в строку и пройтись по её символам.</p></details>
-  <details><summary>Решение: трёхзначные</summary>
-<pre><code>for n in range(100, 1000):
-    a, b, c = n // 100, n // 10 % 10, n % 10
-    if a ** 3 + b ** 3 + c ** 3 == n:
-        print(n)</code></pre></details>
-  <details><summary>Решение: любая длина</summary>
-<pre><code>def is_armstrong(n):
-    digits = str(n)
-    power = len(digits)
-    return sum(int(d) ** power for d in digits) == n
-
-
-start = int(input("От: "))
-end = int(input("До: "))
-print([n for n in range(start, end + 1) if is_armstrong(n)])</code></pre></details>
-</section>
-
-<footer>Направление ИКТ «Проектирование ИИ-решений на Python», УО «Национальный детский технопарк».</footer>
+<h1 style="font-size:1.8rem;margin:0 0 .4rem">ИИ на Python: практика</h1>
+<p style="color:var(--muted)">Проектирование ИИ-решений на Python</p>
+<nav class="levels">
+  <a href="ai_python_level1.html"><b>Базовый уровень</b></a>
+  <a href="ai_python_level2.html"><b>Повышенный уровень</b></a>
+</nav>
+<footer>Направление «Проектирование ИИ-решений на Python», УО «Национальный детский технопарк».</footer>
 </main>
 </div>
 </body>
